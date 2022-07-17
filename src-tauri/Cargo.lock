@@ -59,6 +59,7 @@ version = "0.1.0"
 dependencies = [
  "serde",
  "serde_json",
+ "swift-rs",
  "tauri",
  "tauri-build",
 ]
@@ -2640,6 +2641,17 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "swift-rs"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d5e476e124c8144f9ad77f0ea703995b55332cb47e97cbce63853dfda8a8d409"
+dependencies = [
+ "base64",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
