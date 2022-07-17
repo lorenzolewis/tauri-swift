@@ -1,3 +1,3 @@
-# SwiftLibrary
+# swift
 
 A description of this package.
