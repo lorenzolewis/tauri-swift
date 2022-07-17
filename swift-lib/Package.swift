@@ -24,7 +24,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "swift-lib",
-            dependencies: [.byName(name: "SwiftRs")],
+            dependencies: [.product(name: "SwiftRs", package: "SwiftRs")],
             path: "src")
     ]
 )

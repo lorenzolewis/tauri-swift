@@ -1,16 +1,6 @@
 import SwiftRs
 import AppKit
 
-@_cdecl("get_file_thumbnail_base64")
-func getFileThumbnailBase64(path: SRString) -> SRString {
-    let path = path.to_string();
-    
-    let image = NSWorkspace.shared.icon(forFile: path)
-    let bitmap = NSBitmapImageRep(data: image.tiffRepresentation!)!.representation(using: .png, properties: [:])!
-    
-    return SRString(bitmap.base64EncodedString())
-}
-
 class Volume: NSObject {
     var name: SRString
     var path: SRString
@@ -33,48 +23,48 @@ class Volume: NSObject {
 
 @_cdecl("get_mounts")
 func getMounts() -> SRObjectArray {
-    let keys: [URLResourceKey] = [
-        .volumeNameKey,
-        .volumeIsRemovableKey,
-        .volumeIsEjectableKey,
-        .volumeTotalCapacityKey,
-        .volumeAvailableCapacityKey,
-        .volumeIsRootFileSystemKey,
-    ]
+    // let keys: [URLResourceKey] = [
+    //     .volumeNameKey,
+    //     .volumeIsRemovableKey,
+    //     .volumeIsEjectableKey,
+    //     .volumeTotalCapacityKey,
+    //     .volumeAvailableCapacityKey,
+    //     .volumeIsRootFileSystemKey,
+    // ]
     
-    let paths = autoreleasepool {
-        FileManager().mountedVolumeURLs(includingResourceValuesForKeys: keys, options: [])
-    }
+    // let paths = autoreleasepool {
+    //     FileManager().mountedVolumeURLs(includingResourceValuesForKeys: keys, options: [])
+    // }
     
-    var validMounts: [Volume] = []
+    // var validMounts: [Volume] = []
         
-    if let urls = paths {
-        autoreleasepool {
-            for url in urls {
-                let components = url.pathComponents
-                if components.count == 1 || components.count > 1
-                   && components[1] == "Volumes"
-                {
-                    let metadata = try? url.promisedItemResourceValues(forKeys: Set(keys))
+    // if let urls = paths {
+    //     autoreleasepool {
+    //         for url in urls {
+    //             let components = url.pathComponents
+    //             if components.count == 1 || components.count > 1
+    //                && components[1] == "Volumes"
+    //             {
+    //                 let metadata = try? url.promisedItemResourceValues(forKeys: Set(keys))
                     
-                    let volume = Volume(
-                        name: metadata?.volumeName ?? "",
-                        path: url.path,
-                        total_capacity: metadata?.volumeTotalCapacity ?? 0,
-                        available_capacity: metadata?.volumeAvailableCapacity ?? 0,
-                        is_removable: metadata?.volumeIsRemovable ?? false,
-                        is_ejectable: metadata?.volumeIsEjectable ?? false,
-                        is_root_filesystem: metadata?.volumeIsRootFileSystem ?? false
-                    )
+    //                 let volume = Volume(
+    //                     name: metadata?.volumeName ?? "",
+    //                     path: url.path,
+    //                     total_capacity: metadata?.volumeTotalCapacity ?? 0,
+    //                     available_capacity: metadata?.volumeAvailableCapacity ?? 0,
+    //                     is_removable: metadata?.volumeIsRemovable ?? false,
+    //                     is_ejectable: metadata?.volumeIsEjectable ?? false,
+    //                     is_root_filesystem: metadata?.volumeIsRootFileSystem ?? false
+    //                 )
                     
                     
-                    validMounts.append(volume)
-                }
-            }
-        }
-    }
+    //                 validMounts.append(volume)
+    //             }
+    //         }
+    //     }
+    // }
     
-    return SRObjectArray(validMounts)
+    return SRObjectArray([Volume(name: "Value", path: "value", total_capacity: 5, available_capacity: 5, is_removable: true, is_ejectable: true, is_root_filesystem: true)])
 }
 
 class Test: NSObject {
@@ -87,8 +77,6 @@ class Test: NSObject {
 }
 
 @_cdecl("return_nullable")
-func returnNullable(null: Bool) -> Test? {
-    if (null == true) { return nil }
-    
-    return Test(null)
+func returnNullable(null: Bool) -> Bool {  
+    return null
 }

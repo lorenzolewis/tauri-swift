@@ -1,10 +1,19 @@
 <script lang="ts">
-	export let name: string;
+	import { invoke } from '@tauri-apps/api/tauri'
+	var result = "Click the button!"
+
+	function clickHandler() {
+		invoke('tauri_get_mounts').then((value: string) => {
+			result = value
+			console.log(value)
+		}).catch((e) => console.error(e))
+	}
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<h1>Hey you!</h1>
+	<p>{result}</p>
+	<button on:click={clickHandler}>Get volume</button>
 </main>
 
 <style>
