@@ -1,0 +1,20 @@
+[package]
+name = "swift-rs"
+version = "0.3.0"
+description = "Call Swift from Rust with ease!"
+authors = ["you"]
+license = "MIT"
+repository = "https://github.com/Brendonovich/swift-rs"
+edition = "2018"
+exclude=["/src-swift", "*.swift"]
+
+[lib]
+path = "src-rs/lib.rs"
+
+[dependencies]
+base64 = "0.13.0"
+serde = { version = "1.0", features = ["derive"], optional = true}
+serde_json = {version = "1.0", optional = true}
+
+[features]
+build = ["serde", "serde_json"]
