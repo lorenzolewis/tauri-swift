@@ -4,3 +4,8 @@ target/
 .idea/
 .DS_Store
 icon.txt
+
+/node_modules/
+/public/build/
+
+.DS_Store
