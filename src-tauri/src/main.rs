@@ -9,7 +9,8 @@ fn main() {
             tauri_get_file_thumbnail_base64,
             tauri_get_mounts,
             tauri_return_nullable,
-            tauri_basic_int
+            tauri_basic_int,
+            tauri_check_notification_permission
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -52,7 +53,12 @@ fn tauri_basic_int() -> String {
     return opt.to_string();
 }
 
-use swift_rs::{SRArray, SRObject, SRObjectArray, SRString};
+#[tauri::command]
+fn tauri_check_notification_permission() {
+    unsafe { check_notification_permission() };
+}
+
+use swift_rs::{SRObject, SRObjectArray, SRString};
 
 #[repr(C)]
 struct Volume {
@@ -75,4 +81,5 @@ extern "C" {
     fn get_mounts() -> SRObjectArray<Volume>;
     fn return_nullable(null: bool) -> Option<SRObject<Test>>;
     fn basic_int() -> u8;
+    fn check_notification_permission();
 }

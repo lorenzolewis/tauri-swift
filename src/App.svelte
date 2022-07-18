@@ -35,6 +35,16 @@
       })
       .catch(console.error);
   }
+
+  var tauriCheckNotificationPermissionResult = "";
+  function tauriCheckNotificationPermission() {
+    console.log("tauriCheckNotificationPermission pressed on the JS side");
+    invoke("tauri_check_notification_permission")
+      .then((result) => {
+        console.log(result);
+      })
+      .catch(console.error);
+  }
 </script>
 
 <main>
@@ -58,6 +68,11 @@
     <br />
     <button on:click={tauriBasicInt}>tauriBasicInt</button>
     Result: {tauriBasicIntResult}
+    <br />
+    <button on:click={tauriCheckNotificationPermission}
+      >tauriCheckNotificationPermission</button
+    >
+    Result: {tauriCheckNotificationPermissionResult}
   </div>
 </main>
 

@@ -1,5 +1,16 @@
 import SwiftRs
 import AppKit
+import UserNotifications
+
+
+@_cdecl("check_notification_permission")
+func checkNotificationPermission() {
+    UNUserNotificationCenter.current().getNotificationSettings { settings in
+        print(settings)
+    }
+    print("Hi from Swift!")
+}
+
 
 @_cdecl("get_file_thumbnail_base64")
 func getFileThumbnailBase64(path: SRString) -> SRString {
@@ -97,4 +108,3 @@ func returnNullable(null: Bool) -> Test? {
 func basicInt() -> UInt8 {
     return 8
 }
-
