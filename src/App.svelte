@@ -1,23 +1,38 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/tauri";
 
+  var tauriGetFileThumbnailBase64Result = "";
   function tauriGetFileThumbnailBase64() {
     console.log("tauriGetFileThumbnailBase64 pressed on the JS side");
-    invoke("tauri_get_file_thumbnail_base64");
-  }
-  function tauriGetMounts() {
-    console.log("tauriGetMounts pressed on the JS side");
-    invoke("tauri_get_mounts");
-  }
-  function tauriReturnNullable() {
-    console.log("tauriReturnNullable pressed on the JS side");
-    invoke("tauri_return_nullable");
+    invoke("tauri_get_file_thumbnail_base64")
+      .then((result) => console.log(result))
+      .catch(console.error);
   }
 
+  var tauriGetMountsResult = "";
+  function tauriGetMounts() {
+    console.log("tauriGetMounts pressed on the JS side");
+    invoke("tauri_get_mounts")
+      .then((result) => console.log(result))
+      .catch(console.error);
+  }
+
+  var tauriReturnNullableResult = "";
+  function tauriReturnNullable() {
+    console.log("tauriReturnNullable pressed on the JS side");
+    invoke("tauri_return_nullable")
+      .then((result) => console.log(result))
+      .catch(console.error);
+  }
+
+  var tauriBasicIntResult = "";
   function tauriBasicInt() {
     console.log("tauriBasicInt pressed on the JS side");
     invoke("tauri_basic_int")
-      .then((result) => console.log(result))
+      .then((result) => {
+        console.log(result);
+        tauriBasicIntResult = result as string;
+      })
       .catch(console.error);
   }
 </script>
@@ -30,14 +45,19 @@
   </p>
   <div>
     <button on:click={tauriGetFileThumbnailBase64}
-      >tauriGetFileThumbnailBase64</button
+      >tauriGetFileThumbnailBase64 (Crashes)</button
     >
+    Result: {tauriGetFileThumbnailBase64Result}
     <br />
-    <button on:click={tauriGetMounts}>tauriGetMounts</button>
+    <button on:click={tauriGetMounts}>tauriGetMounts (Crashes)</button>
+    Result: {tauriGetMountsResult}
     <br />
-    <button on:click={tauriReturnNullable}>tauriReturnNullable</button>
+    <button on:click={tauriReturnNullable}>tauriReturnNullable (Crashes)</button
+    >
+    Result: {tauriReturnNullableResult}
     <br />
     <button on:click={tauriBasicInt}>tauriBasicInt</button>
+    Result: {tauriBasicIntResult}
   </div>
 </main>
 

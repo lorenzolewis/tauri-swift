@@ -23,19 +23,16 @@ fn tauri_get_file_thumbnail_base64() -> String {
     std::fs::write("icon.txt", &thumbnail).unwrap();
     println!("Wrote folder icon base64 to icon.txt");
 
-    let mounts = unsafe { get_mounts() };
-    println!("First Volume Name: {}", mounts[0].name);
-
-    return "test".to_string();
+    return "Wrote folder icon base64 to icon.txt".to_string();
 }
 
 #[tauri::command]
 fn tauri_get_mounts() -> String {
     println!("tauri_get_mounts started on the Rust side");
-    let opt = unsafe { return_nullable(true) };
-    println!("function returned nil: {}", opt.is_none());
+    let mounts = unsafe { get_mounts() };
+    println!("Result: {}", mounts[0].name);
 
-    return "test".to_string();
+    return mounts[0].name.to_string();
 }
 
 #[tauri::command]
@@ -44,7 +41,7 @@ fn tauri_return_nullable() -> String {
     let opt = unsafe { return_nullable(false) };
     println!("function returned data: {}", opt.is_some());
 
-    return "test".to_string();
+    return opt.is_some().to_string();
 }
 
 #[tauri::command]
