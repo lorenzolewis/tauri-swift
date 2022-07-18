@@ -92,3 +92,9 @@ func returnNullable(null: Bool) -> Test? {
     
     return Test(null)
 }
+
+@_cdecl("basic_int")
+func basicInt() -> UInt8 {
+    return 8
+}
+
