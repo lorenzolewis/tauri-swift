@@ -1,14 +1,21 @@
 import SwiftRs
 import AppKit
 import UserNotifications
+import OSLog
 
 
 @_cdecl("check_notification_permission")
 func checkNotificationPermission() {
-    UNUserNotificationCenter.current().getNotificationSettings { settings in
-        print(settings)
+    let log = Logger()
+    log.error("SPECIAL STRING")
+    UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { granted, error in
+        log.error("Granted: \(granted), Error: \(error.debugDescription, privacy: .public)")
     }
-    print("Hi from Swift!")
+    
+    UNUserNotificationCenter.current().getNotificationSettings { settings in
+        log.error("Message \(settings, privacy: .public)")
+    }
+    log.debug("Hi from Swift!")
 }
 
 
